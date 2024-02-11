@@ -1,13 +1,13 @@
 package com.bocheng.springbootmall.controller;
 
+import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
 import com.bocheng.springbootmall.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
@@ -16,6 +16,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    //查詢商品功能
     //ResponseEntity 自定義回傳的 http response的細節
     //返回 Product類型的 ResponseEntity
     //取得商品數據用 Get請求
@@ -32,5 +33,19 @@ public class ProductController {
             // 回傳 404給前端
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    //新增商品功能
+    //創建新的 class，專門接住前段傳回來的 Json參數。放在 dto.ProductRequest
+    //@RequestBody 接住前段傳過來的 request。要記得加上@Valid
+    @PostMapping("/products")
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest){
+        Integer productId = productService.createProduct(productRequest);
+
+        //使用 productID來查詢商品數據
+        Product product = productService.getProductById(productId);
+
+        //把商品數據傳給前端 body，並回傳201
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 }

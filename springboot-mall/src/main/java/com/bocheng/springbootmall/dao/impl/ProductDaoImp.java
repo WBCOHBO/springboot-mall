@@ -1,12 +1,17 @@
 package com.bocheng.springbootmall.dao.impl;
 
 import com.bocheng.springbootmall.dao.ProductDao;
+import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
 import com.bocheng.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,5 +42,34 @@ public class ProductDaoImp implements ProductDao {
             return null;
         }
 
+    }
+
+    @Override
+    public Integer createProduct(ProductRequest productRequest) {
+        String sql = "INSERT INTO product (product_name, category, image_url, " +
+                "price, stock, description, created_date, last_modified_date) " +
+                "VALUES (:productName, :category, :imageUrl, :price, :stock, " +
+                ":description, :createDate, :lastModifiedDate)";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("productName", productRequest.getProductName());
+        map.put("category", productRequest.getCategory().toString());
+        map.put("imageUrl", productRequest.getImageUrl());
+        map.put("price", productRequest.getPrice());
+        map.put("stock", productRequest.getStock());
+        map.put("description", productRequest.getDescription());
+
+        Date now = new Date();
+        map.put("createDate", now);
+        map.put("lastModifiedDate", now);
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        //更新資料庫，建立新商品
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        //將新商品的 productId存取
+        int productId = keyHolder.getKey().intValue();
+
+        return productId;
     }
 }
