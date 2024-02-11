@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
@@ -16,7 +18,15 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    //查詢商品功能
+    //查詢商品列表
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts(){
+        List<Product> productList = productService.getProducts();
+
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
+
+    //查詢單個商品功能
     //ResponseEntity 自定義回傳的 http response的細節
     //返回 Product類型的 ResponseEntity
     //取得商品數據用 Get請求
