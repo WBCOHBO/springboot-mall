@@ -48,4 +48,26 @@ public class ProductController {
         //把商品數據傳給前端 body，並回傳201
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
+
+    @PutMapping("/products/{productId}")
+    //修改商品功能
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
+                                                 //接住前端商品修改過後的數據
+                                                 @RequestBody @Valid ProductRequest productRequest){
+        //查詢並判斷前端給的商品 ID
+        Product product = productService.getProductById(productId);
+
+        if (product == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        //productId : 表示要更新哪個商品。productRequest 修改的值
+        productService.updateProduct(productId, productRequest);
+
+        //從DB中取得更新後的數據出來
+        Product updatedProduct = productService.getProductById(productId);
+
+        //回傳給前端200，並呈現在 body中
+        return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+    }
 }
