@@ -1,5 +1,6 @@
 package com.bocheng.springbootmall.controller;
 
+import com.bocheng.springbootmall.constant.ProductCategory;
 import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
 import com.bocheng.springbootmall.service.ProductService;
@@ -20,8 +21,15 @@ public class ProductController {
 
     //查詢商品列表
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> productList = productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(
+            //使用 ProductCategory enum當作參數類型傳入，
+            // SpringBoot會自動將前端傳入的字串，去轉換成 ProductCategory enum。
+            // 將category的值傳入 DAO層，用 where來查詢
+            @RequestParam(required = false) ProductCategory category,
+            //新增關鍵字查詢
+            @RequestParam(required = false) String search
+    ){
+        List<Product> productList = productService.getProducts(category,search);
 
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
