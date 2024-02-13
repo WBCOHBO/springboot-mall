@@ -1,6 +1,7 @@
 package com.bocheng.springbootmall.service.impl;
 
 import com.bocheng.springbootmall.dao.UserDao;
+import com.bocheng.springbootmall.dto.UserLoginRequest;
 import com.bocheng.springbootmall.dto.UserRegisterRequest;
 import com.bocheng.springbootmall.model.User;
 import com.bocheng.springbootmall.service.UserService;
@@ -36,5 +37,23 @@ public class UserServiceImpl implements UserService {
 
         //創建帳號
         return userDao.createUser(userRegisterRequest);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        //將前端的 email傳入
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+
+        if (user == null){
+            log.warn("該 email {} 尚未註冊", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (user.getPassword().equals(userLoginRequest.getPassword())){
+            return user;
+        }else {
+            log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 }
