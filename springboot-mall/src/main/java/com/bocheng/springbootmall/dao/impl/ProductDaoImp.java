@@ -31,6 +31,7 @@ public class ProductDaoImp implements ProductDao {
         // WHERE 1=1的用途 : 為了要讓下面的 if enum能判斷是否為 null，並執行 sql的 string 拼接
         Map<String, Object> map = new HashMap<>();
 
+        //查詢條件
         if (productQueryParams.getCategory() != null){
             sql = sql + " AND category = :category";
             //用.name()轉成字串
@@ -44,9 +45,16 @@ public class ProductDaoImp implements ProductDao {
            map.put("search", "%" + productQueryParams.getSearch() + "%");
         }
 
+        //排序
         //sql 排序語法只能以字串拼接的方式實作。
         //因為 Controller的參數有設定@RequestParam的default value，所以不用另外判斷是否為 null
         sql = sql + " ORDER BY " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
+
+        //分頁
+        sql = sql + " LIMIt :limit OFFSET :offset";
+
+        map.put("limit", productQueryParams.getLimit());
+        map.put("offset", productQueryParams.getOffset());
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
