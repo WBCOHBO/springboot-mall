@@ -1,6 +1,7 @@
 package com.bocheng.springbootmall.controller;
 
 import com.bocheng.springbootmall.dto.CreateOrderRequest;
+import com.bocheng.springbootmall.model.Order;
 import com.bocheng.springbootmall.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,12 @@ public class OrderController {
     public ResponseEntity<?> createOrder(@PathVariable Integer userId,
                                          //接住前端傳過來的 Json參數
                                          @RequestBody @Valid CreateOrderRequest createOrderRequest){
+        //資料庫插入數據
         Integer orderId = orderService.createOrder(userId, createOrderRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderId);
+        //數據傳給前端
+        Order order = orderService.getOrderById(orderId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 }
