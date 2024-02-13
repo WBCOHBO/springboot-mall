@@ -1,6 +1,6 @@
 package com.bocheng.springbootmall.dao;
 
-import com.bocheng.springbootmall.constant.ProductCategory;
+import com.bocheng.springbootmall.dto.ProductQueryParams;
 import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductDao {
 
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 
     Product getProductById(Integer productId);
 

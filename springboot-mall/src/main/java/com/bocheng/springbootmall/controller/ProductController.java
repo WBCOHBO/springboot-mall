@@ -1,6 +1,7 @@
 package com.bocheng.springbootmall.controller;
 
 import com.bocheng.springbootmall.constant.ProductCategory;
+import com.bocheng.springbootmall.dto.ProductQueryParams;
 import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
 import com.bocheng.springbootmall.service.ProductService;
@@ -29,7 +30,11 @@ public class ProductController {
             //新增關鍵字查詢
             @RequestParam(required = false) String search
     ){
-        List<Product> productList = productService.getProducts(category,search);
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+
+        List<Product> productList = productService.getProducts(productQueryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
