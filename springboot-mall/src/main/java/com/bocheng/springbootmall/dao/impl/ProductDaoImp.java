@@ -30,18 +30,7 @@ public class ProductDaoImp implements ProductDao {
         Map<String, Object> map = new HashMap<>();
 
         //查詢條件
-        if (productQueryParams.getCategory() != null){
-            sql = sql + " AND category = :category";
-            //用.name()轉成字串
-            map.put("category", productQueryParams.getCategory().name());
-        }
-
-        if (productQueryParams.getSearch() != null){
-            // sql的模糊查詢 LIKE %不能寫在 sql語句中。
-            //一定要寫在 arrayList中，這是JDBC的限制
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search", "%" + productQueryParams.getSearch() + "%");
-        }
+        sql = addFilteringSql(sql, map, productQueryParams);
 
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
@@ -57,18 +46,7 @@ public class ProductDaoImp implements ProductDao {
         Map<String, Object> map = new HashMap<>();
 
         //查詢條件
-        if (productQueryParams.getCategory() != null){
-            sql = sql + " AND category = :category";
-            //用.name()轉成字串
-            map.put("category", productQueryParams.getCategory().name());
-        }
-
-        if (productQueryParams.getSearch() != null){
-           // sql的模糊查詢 LIKE %不能寫在 sql語句中。
-            //一定要寫在 arrayList中，這是JDBC的限制
-            sql = sql + " AND product_name LIKE :search";
-           map.put("search", "%" + productQueryParams.getSearch() + "%");
-        }
+        sql = addFilteringSql(sql, map, productQueryParams);
 
         //排序
         //sql 排序語法只能以字串拼接的方式實作。
@@ -165,5 +143,21 @@ public class ProductDaoImp implements ProductDao {
         map.put("productId", productId);
 
         namedParameterJdbcTemplate.update(sql,map);
+    }
+
+    private String addFilteringSql(String sql, Map<String, Object> map, ProductQueryParams productQueryParams){
+        if (productQueryParams.getCategory() != null){
+            sql = sql + " AND category = :category";
+            //用.name()轉成字串
+            map.put("category", productQueryParams.getCategory().name());
+        }
+
+        if (productQueryParams.getSearch() != null){
+            // sql的模糊查詢 LIKE %不能寫在 sql語句中。
+            //一定要寫在 arrayList中，這是JDBC的限制
+            sql = sql + " AND product_name LIKE :search";
+            map.put("search", "%" + productQueryParams.getSearch() + "%");
+        }
+        return sql;
     }
 }
