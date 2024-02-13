@@ -5,6 +5,7 @@ import com.bocheng.springbootmall.dto.ProductQueryParams;
 import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
 import com.bocheng.springbootmall.service.ProductService;
+import com.bocheng.springbootmall.util.Page;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -26,7 +27,7 @@ public class ProductController {
 
     //查詢商品列表
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(
+    public ResponseEntity<Page<Product>> getProducts(
             //使用 ProductCategory enum當作參數類型傳入，
             // SpringBoot會自動將前端傳入的字串，去轉換成 ProductCategory enum。
             // 將category的值傳入 DAO層，用 where來查詢
@@ -49,9 +50,20 @@ public class ProductController {
         productQueryParams.setOffset(offset);
 
 
+        //取得 product list
         List<Product> productList = productService.getProducts(productQueryParams);
 
-        return ResponseEntity.status(HttpStatus.OK).body(productList);
+        //取得 product總數
+        Integer total = productService.countProduct(productQueryParams);
+
+        //分頁
+        Page<Product> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResult(productList);
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
     //查詢單個商品功能
