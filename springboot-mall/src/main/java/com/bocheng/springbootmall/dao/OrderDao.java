@@ -1,12 +1,17 @@
 package com.bocheng.springbootmall.dao;
 
 import com.bocheng.springbootmall.dto.CreateOrderRequest;
+import com.bocheng.springbootmall.dto.OrderQueryParams;
 import com.bocheng.springbootmall.model.Order;
 import com.bocheng.springbootmall.model.OrderItem;
 
 import java.util.List;
 
 public interface OrderDao {
+
+    Integer countOrder(OrderQueryParams orderQueryParams);
+
+    List<Order> getOrders(OrderQueryParams orderQueryParams);
 
     Order getOrderById(Integer orderId);
 
