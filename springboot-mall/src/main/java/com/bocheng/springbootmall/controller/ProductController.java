@@ -25,12 +25,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // Spring App 的初始頁面
-    @GetMapping("/")
-    public String greeting() {
-        return "Welcome to Spring Boot mall !";
-    }
-
     //查詢商品列表
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> getProducts(
