@@ -4,6 +4,7 @@ import com.bocheng.springbootmall.dao.ProductDao;
 import com.bocheng.springbootmall.dto.ProductQueryParams;
 import com.bocheng.springbootmall.dto.ProductRequest;
 import com.bocheng.springbootmall.model.Product;
+import com.bocheng.springbootmall.rowmapper.ProductListRowMapper;
 import com.bocheng.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -60,6 +61,18 @@ public class ProductDaoImp implements ProductDao {
         map.put("offset", productQueryParams.getOffset());
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
+
+        return productList;
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        String sql = "SELECT product_id, image_url,product_name, price, stock, description " +
+                "FROM product";
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<Product> productList = namedParameterJdbcTemplate.query(sql,map,new ProductListRowMapper());
 
         return productList;
     }

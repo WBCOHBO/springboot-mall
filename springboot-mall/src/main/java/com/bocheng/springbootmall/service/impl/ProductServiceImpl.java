@@ -27,6 +27,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProducts() {
+        return productDao.getProducts();
+    }
+
+    @Override
     // call productDao 的getProductById方法，把productId傳入
     public Product getProductById(Integer productId) {
         return productDao.getProductById(productId);

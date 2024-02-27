@@ -15,6 +15,8 @@ public interface ProductService {
     // class路徑名稱 : ~/dto.ProductQueryParams
     List<Product> getProducts(ProductQueryParams productQueryParams);
 
+    List<Product> getProducts();
+
     Product getProductById(Integer productId);
 
     Integer createProduct(ProductRequest productRequest);
