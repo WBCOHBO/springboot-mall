@@ -3,20 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/ProductList.css">
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/ProductList.css}">
+    <title>SpringBoot-mall</title>
 </head>
 <body>
-
     <div class="container">
-        <form method="get" action="/searchProduct">
-            <!-- input : 文字欄位 type 要用 text -->
-            <!-- 命名此標籤的名稱 name -->
-            <label>
-                <input type="text" name="productId" placeholder="請輸入商品編號">
-            </label>
-            <!-- 送出的 type 為 submit。value 更改按鈕名稱 -->
-            <input type="submit" value="搜尋">
+        <form id="searchForm" method="get">
+            <label for="productId">搜尋商品編號</label>
+            <input type="text" id="productId" name="productId" />
+            <button type="button" onclick="submitForm()">搜尋</button>
         </form>
     </div>
     <div class="container">
@@ -27,7 +22,12 @@
             <li th:text="'商品庫存 : ' + *{product.stock}"></li>
             <li th:text="'商品價格 : ' + *{product.price}"></li>
             <li th:text="'商品描述 : ' + *{product.description}"></li>
+            <a th:href="@{/modifyProduct}">
+                <button class="modBtn" >修改商品</button>
+            </a>
         </ul>
     </div>
+<script th:src="@{/JS/searchProduct.js}"></script>
 </body>
+
 </html>

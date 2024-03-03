@@ -2,19 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>SpringBoot-mall</title>
+    <link rel="stylesheet" th:href="@{/css/searchProduct.css}">
 </head>
 <body>
-    <div th:object="${jsonString}">
-        <img th:src="*{imageUrl}" alt="Image">
-        <p th:text="'商品名稱 : ' + *{productName}"></p>
-        <p th:text="'商品庫存 : ' + *{stock}"></p>
-        <p th:text="'商品價格 : ' + *{price}"></p>
-        <p th:text="'商品編號 : ' + *{productId}"></p>
-        <p th:text="'商品描述 : ' + *{description}"></p>
-        <p th:text="'修改日期 : ' + *{lastModifiedDate}"></p>
-        <p th:text="'商品類別 : ' + *{category}"></p>
-        <p th:text="'建立日期 : ' + *{createDate}"></p>
+    <div th:object="${jsonString}" class="container">
+        <ul  class="row">
+            <li><img th:src="*{imageUrl}" alt="Image"></li>
+            <li th:text="'商品名稱 : ' + *{productName}"></li>
+            <li th:text="'商品庫存 : ' + *{stock}"></li>
+            <li th:text="'商品價格 : ' + *{price}"></li>
+            <li th:text="'商品編號 : ' + *{productId}"></li>
+            <li th:text="'商品描述 : ' + *{description}"></li>
+            <li th:text="'修改日期 : ' + *{lastModifiedDate}"></li>
+            <li th:text="'商品類別 : ' + *{category}"></li>
+            <li th:text="'建立日期 : ' + *{createDate}"></li>
+        </ul>
 
     </div>
 </body>

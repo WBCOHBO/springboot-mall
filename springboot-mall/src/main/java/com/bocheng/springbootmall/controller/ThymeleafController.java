@@ -5,8 +5,6 @@ import com.bocheng.springbootmall.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +30,8 @@ public class ThymeleafController {
     }
 
     // web 查詢單一商品
-    @GetMapping("/searchProduct")
-    public String getProduct(Integer productId,
+    @GetMapping("/searchProduct/{productId}")
+    public String getProduct(@PathVariable Integer productId,
                              Model model) throws JsonProcessingException {
         //從 productService.getProductById查詢 productId的商品出來
         Product product = productService.getProductById(productId);
