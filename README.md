@@ -8,12 +8,16 @@
 4. Java/JDK version : 17
 5. Spring Boot Dao使用 JDBC。
 6. 使用 RESTful 與 API Tester來設計 API
+7. 使用 Thymeleaf 來呈現前端。
 
 ## 電商網站功能大綱
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E5%AF%A6%E4%BD%9C%E5%85%A7%E5%AE%B9_2.png" height="200px" width="800px" />
 
-## 詳細功能介紹
-### 查詢商品列表
+## 詳細功能介紹 - 查詢商品列表
+#### 使用 Thymeleaf 呈現首頁
+
+<img src="https://github.com/WBCOHBO/springboot-mall/blob/a8659a4de854e97354f22d261b2e64c4c2c16d43/springboot-mall/img/Thymeleaf_%E5%95%86%E5%93%81%E5%88%97%E8%A1%A8.png" height="300px" width="1000px" />
+
 #### 使用 enum類型來查詢分類
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E6%9F%A5%E8%A9%A2%E5%88%97%E8%A1%A8-3_%E7%94%A8enum%E9%A1%9E%E5%9E%8B%E4%BE%86%E6%9F%A5%E8%A9%A2%E5%88%86%E9%A1%9E.png" height="300px" width="800px" />
@@ -26,13 +30,14 @@
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E6%9F%A5%E8%A9%A2%E5%88%97%E8%A1%A8-6_%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD.png" height="300px" width="800px" />
 
-##
-### 商品的CRUD
+## 詳細功能介紹 - 商品的CRUD
 #### 建立新商品 - 在 request body建立對應的資料數據，再回傳 response body來呈現建立的資料
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%95%86%E5%93%81-1.png" height="300px" width="800px" />
 
 #### 查詢商品
+
+<img src="https://github.com/WBCOHBO/springboot-mall/blob/a8659a4de854e97354f22d261b2e64c4c2c16d43/springboot-mall/img/Thymeleaf_%E5%95%86%E5%93%81%E6%9F%A5%E8%A9%A2.png" height="300px" width="1000px" />
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E5%95%86%E5%93%81%E6%9F%A5%E8%A9%A2-1.png" height="300px" width="800px" />
 
@@ -44,8 +49,7 @@
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E5%95%86%E5%93%81%E5%88%AA%E9%99%A4%E5%8A%9F%E8%83%BD-2.png" height="300px" width="800px" />
 
-##
-### 帳號功能
+## 詳細功能介紹 - 帳號功能
 #### 註冊新帳號 - 檢查request body 註冊的 email，並隱藏返回的密碼
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E8%A8%BB%E5%86%8A%E6%96%B0%E5%B8%B3%E6%88%B6_%E9%9A%B1%E8%97%8F%E5%AF%86%E7%A2%BC.png" height="400px" width="800px" />
@@ -58,8 +62,7 @@
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E7%94%A8%E6%88%B6%E7%99%BB%E5%85%A5.png" height="400px" width="800px" />
 
-##
-### 訂單功能
+## 詳細功能介紹 - 訂單功能
 #### 創建訂單 - 讀取 request body中建立的訂單資料，將訂單資料回傳至 response body
 
 <img src="https://github.com/WBCOHBO/springboot-mall/blob/f6ef6647d202a0863954d2fd1210c52636e29d07/springboot-mall/img/%E8%A8%82%E5%96%AE%E5%8A%9F%E8%83%BD-%E8%AE%80%E5%8F%96%E8%A8%82%E5%96%AE%E4%B8%AD%20order%E7%9A%84%E6%95%B8%E6%93%9A.png" height="400px" width="800px" />
