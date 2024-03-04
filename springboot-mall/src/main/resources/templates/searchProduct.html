@@ -18,7 +18,9 @@
             <li th:text="'商品類別 : ' + *{category}"></li>
             <li th:text="'建立日期 : ' + *{createDate}"></li>
         </ul>
-
+        <a th:href="@{/index}">
+            <button>返回主頁</button>
+        </a>
     </div>
 </body>
 </html>
